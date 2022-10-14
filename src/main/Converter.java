@@ -44,12 +44,58 @@ public class Converter {
     }
 
     public double getValue(int n) {
-
+        Double value = 0.0;
+        if(n/10 == 4) {
+            switch (n % 10) {
+                case 1:
+                    value = oldRussianLength.get(1);
+                    break;
+                case 2:
+                    value = oldRussianLength.get(2);
+                    break;
+                case 3:
+                    value = oldRussianLength.get(3);
+                    break;
+                case 4:
+                    value = oldRussianLength.get(4);
+                    break;
+            }
+        }else if(n/10 == 5){
+            switch(n%10){
+                case 1:
+                    value = americanLength.get(1);
+                    break;
+                case 2:
+                    value = americanLength.get(2);
+                    break;
+                case 3:
+                    value = americanLength.get(3);
+                    break;
+                case 4:
+                    value = americanLength.get(4);
+                    break;
+            }
+        }else{
+            switch(n){
+                case 1:
+                    value = 1.0;
+                    break;
+                case 2:
+                    value = 100.0;
+                    break;
+                case 3:
+                    value = 100000.0;
+                    break;
+            }
+        }
+        return value;
     }
 
     public Double convert(int n, double number, double mult) {
+        DecimalFormat decimalFormat = new DecimalFormat("#.####");
         Double value = getValue(n);
-        Double result = number * value * mult;
-        return result;
+        String result = decimalFormat.format(number * value * mult);
+        Double res = Double.parseDouble( result.replace(",",".") );
+        return res;
     }
 }
